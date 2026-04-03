@@ -19,22 +19,27 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          # 1. Delete the GitHub history to avoid pushing old large commits
           rm -rf .git
-          
-          # 2. Start a fresh repository locally on the runner
           git init
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           
-          # 3. Tell Git to use Large File Storage (LFS) for the heavy database
+          # Initialize LFS
           git lfs install
+          
+          # Track EVERYTHING that Hugging Face is rejecting
           git lfs track "*.db"
           git lfs track "*.sqlite"
+          git lfs track "*.png"
+          git lfs track "*.jpeg"
+          git lfs track "*.jpg"
+          git lfs track "*.gif"
           
-          # 4. Package it all up
+          # Crucial: Ensure the .gitattributes file (which stores the LFS rules) is added first
+          git add .gitattributes
           git add .
-          git commit -m "Clean sync with LFS enabled"
           
-          # 5. Force push directly to your Hugging Face Space
+          git commit -m "Clean sync: Moving images and DBs to LFS"
+          
+          # Force push to the Space
           git push --force https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator master:main
