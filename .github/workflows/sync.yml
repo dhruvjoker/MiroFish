@@ -9,10 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Updated to v4 to fix your warning
         with:
           fetch-depth: 0
       - name: Push to Hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push --force https://Dhruvcant/microfish-simulator:$HF_TOKEN@huggingface.co/spaces/YOUR_HF_USERNAME/YOUR_SPACE_NAME main
+        # We use 'master:main' just in case your GitHub uses the old 'master' name
+        run: git push --force https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator main
