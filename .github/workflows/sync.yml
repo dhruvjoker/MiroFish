@@ -17,7 +17,7 @@ jobs:
       - name: Push to Hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        # This version specifically handles the 2026 Node.js 24 transition
+        # This version uses the modern 'hf.co' domain structure
         run: |
           git remote add hf https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator
           git push --force hf HEAD:main
