@@ -4,10 +4,6 @@ on:
     branches: [main, master]
   workflow_dispatch:
 
-# This block is MANDATORY in 2026 to fix Exit Code 1
-permissions:
-  contents: write
-
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -17,8 +13,11 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
+
       - name: Push to Hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        # This new URL format bypasses the 2026 Node/Auth issues
-        run: git push --force https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator HEAD:main
+        # This version specifically handles the 2026 Node.js 24 transition
+        run: |
+          git remote add hf https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator
+          git push --force hf HEAD:main
