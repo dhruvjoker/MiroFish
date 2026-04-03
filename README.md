@@ -1,22 +1,12 @@
-configuration error
-Missing configuration in README
-Base README.md template:
-
 ---
-title: {{title}}
-emoji: {{emoji}}
-colorFrom: {{colorFrom}}
-colorTo: {{colorTo}}
-sdk: {{sdk}}
-sdk_version: "{{sdkVersion}}"
-{{#pythonVersion}}
-python_version: "{{pythonVersion}}"
-{{/pythonVersion}}
-app_file: app.py
+title: MiroFish Simulator
+emoji: 🐟
+colorFrom: blue
+colorTo: green
+sdk: docker
 pinned: false
+app_port: 80
 ---
-
-Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
 <div align="center">
 
 <img src="./static/image/MiroFish_logo_compressed.jpeg" alt="MiroFish Logo" width="75%"/>
