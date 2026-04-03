@@ -8,19 +8,33 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     env:
-      # Fixes the April 2026 Node.js 24 deprecation crash
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          lfs: true
 
       - name: Push to Hub
         env:
-          # This must match your GitHub Secret name exactly
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git remote add hf https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator || git remote set-url hf https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator
-          git push --force hf HEAD:main
+          # 1. Delete the GitHub history to avoid pushing old large commits
+          rm -rf .git
+          
+          # 2. Start a fresh repository locally on the runner
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          # 3. Tell Git to use Large File Storage (LFS) for the heavy database
+          git lfs install
+          git lfs track "*.db"
+          git lfs track "*.sqlite"
+          
+          # 4. Package it all up
+          git add .
+          git commit -m "Clean sync with LFS enabled"
+          
+          # 5. Force push directly to your Hugging Face Space
+          git push --force https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator master:main
