@@ -63,13 +63,15 @@ class Config:
     REPORT_AGENT_MAX_REFLECTION_ROUNDS = int(os.environ.get('REPORT_AGENT_MAX_REFLECTION_ROUNDS', '2'))
     REPORT_AGENT_TEMPERATURE = float(os.environ.get('REPORT_AGENT_TEMPERATURE', '0.5'))
     
-    @classmethod
+   @classmethod
     def validate(cls):
         """验证必要配置"""
         errors = []
         if not cls.LLM_API_KEY:
             errors.append("LLM_API_KEY 未配置")
-        if not cls.ZEP_API_KEY:
-            errors.append("ZEP_API_KEY 未配置")
+        # Remove or comment out the ZEP check entirely
+        # if not cls.ZEP_API_KEY:
+        #     errors.append("ZEP_API_KEY 未配置")
         return errors
+            
 
