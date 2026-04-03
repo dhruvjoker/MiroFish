@@ -12,10 +12,19 @@ export default defineConfig({
     }
   },
   server: {
-    port: 3000,
-    open: true,
+    // 1. Change port to 7860 for Hugging Face
+    port: 7860, 
+    host: '0.0.0.0',
+    // 2. Disable 'open' to stop the xdg-open error
+    open: false, 
+    // 3. Allow Hugging Face hosts
+    allowedHosts: [
+      'dhruvcant-microfish-simulator.hf.space',
+      '.hf.space'
+    ],
     proxy: {
       '/api': {
+        // 4. Ensure this matches your backend port (usually 5000 or 5001)
         target: 'http://localhost:5001',
         changeOrigin: true,
         secure: false
