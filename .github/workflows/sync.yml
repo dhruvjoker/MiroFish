@@ -8,11 +8,10 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     env:
-      # This is the EXACT line from your editor's note to fix the Node 24 issue
+      # Fixes the April 2026 Node.js 24 deprecation crash
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout Repository
-        # v4 is the latest version compatible with Node 24
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -20,9 +19,8 @@ jobs:
 
       - name: Push to Hub
         env:
-          # Use the 'Write' token you created in Hugging Face
+          # This must match your GitHub Secret name exactly
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          # The 2026 secure URL format
           git remote add hf https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator || git remote set-url hf https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator
           git push --force hf HEAD:main
