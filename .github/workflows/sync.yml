@@ -7,6 +7,9 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    env:
+      # This line is CRITICAL for 2026 to fix the Node.js crash
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -17,7 +20,7 @@ jobs:
       - name: Push to Hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        # This version uses the modern 'hf.co' domain structure
         run: |
-          git remote add hf https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator
+          # We use a more robust push method here
+          git remote add hf https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator || git remote set-url hf https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator
           git push --force hf HEAD:main
