@@ -15,4 +15,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.NEW_HF_SECRET }}
-        run: git push --force https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/micro-new main
+        run: git push --force https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/MICRO-CHATGPT main
