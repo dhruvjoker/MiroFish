@@ -42,6 +42,6 @@ jobs:
           git commit -m "Clean sync: Moving images and DBs to LFS"
           
           # Force push to the Space - UPDATED URL FOR YOUR NEW SPACE
-          git push --force https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/micro-new master:main
+          git push --force https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/MICRO-CHATGPT master:main
           
           
