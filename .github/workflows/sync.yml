@@ -17,7 +17,7 @@ jobs:
 
       - name: Push to Hub
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_TOKEN: ${{ secrets.NEW_HF_SECRET }}
         run: |
           rm -rf .git
           git init
@@ -35,11 +35,13 @@ jobs:
           git lfs track "*.jpg"
           git lfs track "*.gif"
           
-          # Crucial: Ensure the .gitattributes file (which stores the LFS rules) is added first
+          # Crucial: Ensure the .gitattributes file is added first
           git add .gitattributes
           git add .
           
           git commit -m "Clean sync: Moving images and DBs to LFS"
           
-          # Force push to the Space
-          git push --force https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/microfish-simulator master:main
+          # Force push to the Space - UPDATED URL FOR YOUR NEW SPACE
+          git push --force https://Dhruvcant:$HF_TOKEN@huggingface.co/spaces/Dhruvcant/micro-new master:main
+          
+          
